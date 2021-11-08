@@ -1,0 +1,6 @@
+/.env*
+/.idea
+/venv
+/app/medifiles
+/app/staticfiles
+/app/debug.log
