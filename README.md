@@ -1,5 +1,5 @@
 # DockerSetUp
-## Установка
+## Fast install
 Create clone:
 ```
 git clone https://github.com/Ra1ze505/DockerSetUp.git
