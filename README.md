@@ -36,6 +36,6 @@ Need to do migrations and collect static:
 ```
 docker-compose -f .\docker-compose.prod.yml exec web sh
 python manage.py migrate
-python manage.py collect static
+python manage.py collectstatic
 ```
 
