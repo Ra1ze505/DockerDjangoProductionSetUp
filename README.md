@@ -5,7 +5,7 @@ Create clone:
 git clone https://github.com/Ra1ze505/DockerSetUp.git
 ```
 
-Create at the root of the project file **env.prod** like:
+Create at the root of the project file **.env.prod** like:
 
 ```
 DEBUG=0
@@ -20,7 +20,7 @@ SQL_PORT=5432
 DATABASE=postgres
 ```
 
-Create at the root of the project file **env.prod.db** like:
+Create at the root of the project file **.env.prod.db** like:
 ``` 
 POSTGRES_USER=hello_django
 POSTGRES_PASSWORD=hello_django
