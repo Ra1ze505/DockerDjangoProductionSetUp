@@ -34,7 +34,7 @@ docker-compose -f .\docker-compose.prod.yml up
 
 Need to do migrations and collect static:
 ```
-docker-compose -f .\docker-compose.prod.yml exec web sh
+docker-compose -f .\docker-compose.prod.yml exec --user root web sh
 python manage.py migrate
 python manage.py collectstatic
 ```
