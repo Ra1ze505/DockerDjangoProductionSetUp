@@ -38,4 +38,11 @@ docker-compose -f .\docker-compose.prod.yml exec --user root web sh
 python manage.py migrate
 python manage.py collectstatic
 ```
+# You can got this errors
+on windows
+```
+standard_init_linux.go:228: exec user process caused: no such file or directory
+
+```
+you need change separotors CRLF -> LF
 
