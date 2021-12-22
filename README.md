@@ -42,7 +42,6 @@ python manage.py collectstatic
 on windows
 ```
 standard_init_linux.go:228: exec user process caused: no such file or directory
-
 ```
 you need change separotors CRLF -> LF
 
