@@ -39,7 +39,7 @@ python manage.py migrate
 python manage.py collectstatic
 ```
 # You can got this errors
-on windows
+On windows:
 ```
 standard_init_linux.go:228: exec user process caused: no such file or directory
 ```
