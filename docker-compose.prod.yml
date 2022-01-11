@@ -5,8 +5,7 @@ services:
     restart: always
     build:
       context: ./app
-      dockerfile: Dockerfile.prod
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --reload
+    command: /src/venv/bin/gunicorn app.wsgi:application --bind 0.0.0.0:8000 --reload
     volumes:
       - ./app:/home/app/web
       - static_volume:/home/app/web/staticfiles
@@ -47,9 +46,8 @@ services:
   celery:
     build:
       context: ./app
-      dockerfile: Dockerfile.prod
     container_name: 'celery'
-    command: celery -A app worker -B
+    command: /src/venv/bin/celery -A app worker -B
     env_file:
       - ./.env.prod
     volumes:
@@ -71,8 +69,7 @@ services:
   daphne:
     build:
       context: ./app
-      dockerfile: Dockerfile.prod
-    command: daphne -b 0.0.0.0 -p 8001 app.asgi:application
+    command: /src/venv/bin/daphne -b 0.0.0.0 -p 8001 app.asgi:application
     ports:
       - "8001:8001"
     volumes:
