@@ -59,7 +59,8 @@ RUN cat deps.txt \
     && cat deps.txt | xargs apk add
 
 # copy entrypoint-prod.sh
-COPY ./entrypoint.prod.sh $APP_HOME
+COPY entrypoint.sh $APP_HOME
+RUN chmod +x $APP_HOME/entrypoint.sh
 
 
 
@@ -69,5 +70,5 @@ RUN chown -R django:app $APP_HOME
 # change to the app user
 USER django
 
-# run entrypoint.prod.sh
-ENTRYPOINT ["/home/app/web/entrypoint.prod.sh"]
+# run entrypoint.sh
+ENTRYPOINT ["/home/app/web/entrypoint.sh"]
