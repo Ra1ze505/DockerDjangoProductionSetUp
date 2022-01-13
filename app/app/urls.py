@@ -32,7 +32,6 @@ urlpatterns = [
     path('backend/api/auth/', include('djoser.urls.jwt')),
 
 ]
-# urlpatterns += doc_urls
 urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]
 
 
