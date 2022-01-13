@@ -1,11 +1,11 @@
 # DockerSetUp
 ## Fast install
-Create clone:
+#### Create clone:
 ```
 git clone https://github.com/Ra1ze505/DockerSetUp.git
 ```
 
-Create at the root of the project file **.env.prod** like:
+#### Create at the root of the project file `.env` like:
 
 ```
 DEBUG=0
@@ -20,36 +20,43 @@ SQL_PORT=5432
 DATABASE=postgres
 ```
 
-Create at the root of the project file **.env.prod.db** like:
+#### Create at the root of the project file `.env.db` like:
+
 ``` 
 POSTGRES_USER=hello_django
 POSTGRES_PASSWORD=hello_django
 POSTGRES_DB=hello_django_prod
 ```
 
-Up docker-compose:
+####Up docker-compose:
+
 ```
-docker-compose -f .\docker-compose.prod.yml up
+docker-compose up
 ```
 
-Need to do migrations and collect static:
+# Exec container:
+
 ```
-docker-compose -f .\docker-compose.prod.yml exec --user root web sh
-python manage.py migrate
-python manage.py collectstatic
+docker-compose exec --user django <container-name> sh
 ```
-# You can got this errors
-On windows:
+#### Activate venv in container exec:
+
+```
+source /src/venv/bin/activate
+```
+
+# You may get errors:
+### On windows:
 ```
 standard_init_linux.go:228: exec user process caused: no such file or directory
 ```
-you need change separotors CRLF -> LF
+#### you need change separotors CRLF -> LF
 
-On Linux:
+### On Linux:
 ```
 ERROR: for web  Cannot start service web: OCI runtime create failed: container_linux.go:380: starting container process caused: exec: "/home/app/web/entrypoint.prod.sh": permission denied: unknown
 ```
-you need:
+#### you need:
 ```
 chmod +x entrypoint.prod.sh 
 ```

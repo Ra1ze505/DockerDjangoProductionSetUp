@@ -7,4 +7,7 @@ then
     done
     echo "PostgreSQL started"
 fi
+source /src/venv/bin/activate
+python manage.py migrate --noinput || exit 1
+python manage.py collectstatic --noinput
 exec "$@"
