@@ -1,11 +1,11 @@
 # DockerSetUp
 ## Fast install
-Create clone:
+#### Create clone:
 ```
 git clone https://github.com/Ra1ze505/DockerSetUp.git
 ```
 
-Create at the root of the project file **.env** like:
+#### Create at the root of the project file `.env` like:
 
 ```
 DEBUG=0
@@ -20,16 +20,29 @@ SQL_PORT=5432
 DATABASE=postgres
 ```
 
-Create at the root of the project file **.env.db** like:
+#### Create at the root of the project file `.env.db` like:
+
 ``` 
 POSTGRES_USER=hello_django
 POSTGRES_PASSWORD=hello_django
 POSTGRES_DB=hello_django_prod
 ```
 
-Up docker-compose:
+####Up docker-compose:
+
 ```
 docker-compose up
+```
+
+# Exec container:
+
+```
+docker-compose exec --user django <container-name> sh
+```
+#### Activate venv in container exec:
+
+```
+source /src/venv/bin/activate
 ```
 
 # You may get errors:
