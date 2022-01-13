@@ -60,12 +60,10 @@ RUN cat deps.txt \
 
 # copy entrypoint-prod.sh
 COPY entrypoint.sh $APP_HOME
+RUN chmod a+x $APP_HOME/entrypoint.sh
 
 # chown all the files to the app user
 RUN chown -R django:app $APP_HOME
 
 # change to the app user
 USER django
-
-# run entrypoint.sh
-ENTRYPOINT ["/home/app/web/entrypoint.sh"]

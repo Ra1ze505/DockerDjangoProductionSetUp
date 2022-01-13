@@ -6,6 +6,7 @@ services:
     build:
       context: ./app
     command: /src/venv/bin/gunicorn app.wsgi:application --bind 0.0.0.0:8000 --reload
+    entrypoint: '/home/app/web/entrypoint.sh'
     volumes:
       - ./app:/home/app/web
       - static_volume:/home/app/web/staticfiles
