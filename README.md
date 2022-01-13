@@ -50,13 +50,13 @@ source /src/venv/bin/activate
 ```
 standard_init_linux.go:228: exec user process caused: no such file or directory
 ```
-you need change separotors CRLF -> LF
+#### you need change separotors CRLF -> LF
 
 ### On Linux:
 ```
 ERROR: for web  Cannot start service web: OCI runtime create failed: container_linux.go:380: starting container process caused: exec: "/home/app/web/entrypoint.prod.sh": permission denied: unknown
 ```
-you need:
+#### you need:
 ```
 chmod +x entrypoint.prod.sh 
 ```
