@@ -28,7 +28,7 @@ POSTGRES_PASSWORD=hello_django
 POSTGRES_DB=hello_django_prod
 ```
 
-####Up docker-compose:
+#### Up docker-compose:
 
 ```
 docker-compose up
