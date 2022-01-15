@@ -138,10 +138,6 @@ REST_FRAMEWORK = {
             'rest_framework.parsers.FormParser',
             'rest_framework.parsers.MultiPartParser',
             ),
-    'DEFAULT_FILTERS_BACKENDS': (
-            'django_filters.rest_framework.DjangoFilterBackend',
-
-    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20,
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
