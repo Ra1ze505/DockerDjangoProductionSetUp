@@ -215,6 +215,17 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+# As a value after clicking on the Authorize button : 'JWT yourAccessToken'
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    }
+}
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
