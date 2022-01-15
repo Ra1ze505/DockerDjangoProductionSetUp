@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'celery',
     'channels',
     'silk',
-    'drf_spectacular',
     'django_filters',
 ]
 
