@@ -23,10 +23,10 @@ schema_view = get_schema_view(
 
 urlpatterns = [
 
-    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url(r'^backend/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^backend/swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
-    path("admin/", admin.site.urls),
+    path("backend/admin/", admin.site.urls),
 
     path('backend/api/auth/', include('djoser.urls')),
     path('backend/api/auth/', include('djoser.urls.jwt')),

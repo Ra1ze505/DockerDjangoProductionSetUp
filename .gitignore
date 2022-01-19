@@ -4,3 +4,4 @@
 /app/medifiles
 /app/staticfiles
 /app/debug.log
+/traefik-public-certificates

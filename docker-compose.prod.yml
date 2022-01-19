@@ -1,0 +1,128 @@
+version: '3.3'
+
+services:
+  web:
+    restart: always
+    build:
+      context: ./app
+    command: /src/venv/bin/gunicorn app.wsgi:application --bind 0.0.0.0:8000 --reload
+    entrypoint: '/home/app/web/entrypoint.sh'
+    volumes:
+      - ./app:/home/app/web
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.django.rule=Host(`localhost`) && PathPrefix(`/backend`)"  # Change `localhost` to `your.domain.com`
+      - "traefik.http.routers.django.tls=true"
+      - "traefik.http.routers.django.tls.certresolver=letsencrypt"
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    expose:
+      - 80
+    depends_on:
+      - web
+    labels: # new
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx.rule=Host(`localhost`) && PathPrefix(`/staticfiles`, `/mediafiles`)"  # Change `localhost`
+      - "traefik.http.routers.nginx.tls=true"
+      - "traefik.http.routers.nginx.tls.certresolver=letsencrypt"
+
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod.db
+
+  redis:
+    image: redis
+    restart: always
+    container_name: 'redis'
+    command: redis-server
+    working_dir: /data
+    volumes:
+      - redisdata:/data
+      - /etc/localtime:/etc/localtime
+    expose:
+      - 6379
+  celery:
+    build:
+      context: ./app
+    container_name: 'celery'
+    command: /src/venv/bin/celery -A app worker -B
+    env_file:
+      - ./.env.prod
+    volumes:
+      - .:/code
+    links:
+      - redis
+    depends_on:
+      - web
+      - redis
+  flower:
+    image: mher/flower
+    ports:
+      - 5555:5555
+    environment:
+      - CELERY_BROKER_API=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    depends_on:
+      - celery
+
+# Example how add React app
+#  frontend:
+#    container_name: frontend
+#    build: ./react-app
+#    volumes:
+#      - './react-app:/app'
+#      - '/app/node_modules'
+#    expose:
+#      - 3000
+#    stdin_open: true
+#    environment:
+#      - CHOKIDAR_USEPOLLING=true
+#    command: npm start
+#    labels: # new
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.react.rule=Host(`localhost`)"
+#      - "traefik.http.routers.react.tls=true"
+#      - "traefik.http.routers.react.tls.certresolver=letsencrypt"
+
+  traefik:
+    image: traefik:v2.2
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "./traefik.toml:/etc/traefik/traefik.toml"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik-public-certificates:/certificates"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard-traefik.localhost`)"
+      - "traefik.http.routers.dashboard.tls=true"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=testuser:$$apr1$$jIKW.bdS$$eKXe4Lxjgy/rH65wP1iQe1"
+      #  login: testuser
+      #  password: password
+
+volumes:
+  postgres_data:
+  traefik-public-certificates:
+  static_volume:
+  media_volume:
+  redisdata:
+    driver: local
