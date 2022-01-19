@@ -34,6 +34,8 @@ POSTGRES_DB=hello_django_prod
 docker-compose up
 ```
 
+#### Go to http://localhost/backend/swagger
+#### WebSockets [ws:/localhost/ws/chat/](ws:/localhost/ws/chat/)
 # Exec container:
 
 ```
@@ -76,6 +78,7 @@ sudo docker-compose -f docker-compose.prod.yml up --build -d
 ```
 
 #### Go to https://localhost/backend/swagger
+#### WebSockets [wss:/localhost/ws/chat/](wss:/localhost/ws/chat/)
 #### You can see traefik dashboard on https://dashboard-traefik.localhost/
 
 #### For example login: _testuser_ password: _password_
