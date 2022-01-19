@@ -37,14 +37,14 @@ class TokenAuthMiddleware:
         auth_header = headers.get(b'authorization', '').split()
 
         if not auth_header or auth_header[0].lower() != b'jwt' or len(auth_header) != 2:
-            return exceptions.AuthenticationFailed('Invalid token')
+            return await self.inner(scope, receive, send)
         # Get the token
         token = headers[b'authorization'].decode().split()[1]
 
         try:
             UntypedToken(token)
         except (InvalidToken, TokenError) as e:
-            return None
+            return await self.inner(scope, receive, send)
         else:
             decoded_data = jwt_decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             scope['user'] = await get_user(decoded_data['user_id'])
