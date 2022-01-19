@@ -34,8 +34,8 @@ POSTGRES_DB=hello_django_prod
 docker-compose up
 ```
 
-#### Go to http://localhost/backend/swagger
-#### WebSockets [ws:/localhost/ws/chat/](ws:/localhost/ws/chat/)
+#### Go to http://localhost:8000/backend/swagger
+#### WebSockets [ws:/localhost:8001/ws/chat/](ws:/localhost/ws/chat/)
 # Exec container:
 
 ```
