@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'celery',
     'channels',
     'silk',
-    'drf_spectacular',
     'django_filters',
 ]
 
@@ -138,10 +137,6 @@ REST_FRAMEWORK = {
             'rest_framework.parsers.FormParser',
             'rest_framework.parsers.MultiPartParser',
             ),
-    'DEFAULT_FILTERS_BACKENDS': (
-            'django_filters.rest_framework.DjangoFilterBackend',
-
-    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20,
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
@@ -213,6 +208,17 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=10),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+# As a value after clicking on the Authorize button : 'JWT yourAccessToken'
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    }
 }
 
 LOGGING = {

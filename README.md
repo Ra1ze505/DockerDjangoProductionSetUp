@@ -99,13 +99,23 @@ traefik:
 ```
 
 # You may get errors:
-### On windows:
+### On Windows:
 ```
 standard_init_linux.go:228: exec user process caused: no such file or directory
 ```
-#### you need change separotors CRLF -> LF
+#### or:
+```
+------
+ > [build 8/8] RUN chmod +x ./find_deps.sh     && ./find_deps.sh ./venv/ > deps.txt:
+#20 0.446 /bin/sh: ./find_deps.sh: not found
+------
+executor failed running [/bin/sh -c chmod +x ./find_deps.sh     && ./find_deps.sh ./venv/ > deps.txt]: exit code: 127
+ERROR: Service 'web' failed to build : Build failed
 
-### On Linux:
+```
+#### You need change separators CRLF -> LF in files: `entrypoint.sh` and `find_deps.sh`
+
+### On Linux or macOS:
 ```
 ERROR: for web  Cannot start service web: OCI runtime create failed: container_linux.go:380: starting container process caused: exec: "/home/app/web/entrypoint.prod.sh": permission denied: unknown
 ```
